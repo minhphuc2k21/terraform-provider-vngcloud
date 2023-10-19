@@ -8,5 +8,5 @@ variable "client_secret" {
 }
 variable "project_id" {
   type    = string
-  default = "pro-XXXXXXX-XXXX-XXXX-XXXX" // Project ID nằm
+  default = "pro-XXXXXXX-XXXX-XXXX-XXXX" // Project ID
 }
