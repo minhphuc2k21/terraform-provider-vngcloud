@@ -20,8 +20,14 @@ resource "vngcloud_vserver_network" "network" {
 }
 resource "vngcloud_vserver_subnet" "subnet" {
     project_id = var.project_id //Thuộc Project ID
-    name = "example-subnet" //Tên subnet
+    name = "example-subnet-01" //Tên subnet
     cidr = "10.74.1.0/24" //Tạo Subnet 10.76.1.0/24
+    network_id = vngcloud_vserver_network.network.id //VPC ID
+}
+resource "vngcloud_vserver_subnet" "subnet" {
+    project_id = var.project_id //Thuộc Project ID
+    name = "example-subnet-02" //Tên subnet
+    cidr = "10.74.2.0/24" //Tạo Subnet 10.76.1.0/24
     network_id = vngcloud_vserver_network.network.id //VPC ID
 }
 resource "vngcloud_vserver_secgroup" "secgroup" {
@@ -34,8 +40,8 @@ resource "vngcloud_vserver_secgrouprule" "secgrouprule" {
     project_id = var.project_id //Thuộc Project ID
     direction ="ingress" //Inbound rule
     ethertype ="IPv4" //Ether type: IPv4
-    port_range_max = 65535 //Port range 0-65535
-    port_range_min = 0 //Port range 0-65535
+    port_range_max = 65535 //Port range 0-65535 - Lưu ý: trong môi trường thực tế bạn không nên mở all
+    port_range_min = 0 //Port range 0-65535 - Lưu ý: trong môi trường thực tế bạn không nên mở all
     protocol = "any" // Protocol: Any
     remote_ip_prefix = "0.0.0.0/0" //Allow trên Range IP: 0.0.0.0/0
     security_group_id = resource.vngcloud_vserver_secgroup.secgroup.id //Security Group ID
